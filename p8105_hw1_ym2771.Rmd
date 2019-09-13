@@ -1,0 +1,11 @@
+---
+title: "p8105_hw1_ym2771"
+author: "miao"
+date: "9/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+This is Yuqi Miao's homework 1 
