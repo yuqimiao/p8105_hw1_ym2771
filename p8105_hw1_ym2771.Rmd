@@ -1,48 +1,53 @@
 ---
 title: "p8105_hw1_ym2771"
-author: "miao"
+author: "Yuqi Miao"
 date: "9/12/2019"
 output: github_document
 ---
 # Problem 1
 
-
 ```{r create df1}
 library(tidyverse)
+
+## create df1
 df1 <- tibble(
     a = rnorm(8),
     b = a > 0,
     c = letters[1:8],
     d = factor(c("a","a","a","b","b","b","c","c"), levels = c("a","b","c"))
 )
-mean(df1$a)
-mean(df1$b)
-mean(df1$c)
-mean(df1$d)
+
+## calculate mean of each variable in df1
+sapply(select(df1, everything()),FUN = mean)
 ```
+
 ### summary 1
-as the outcome shows, character variable c and factor variable d can not be applied to mean().
+As the outcome shows, numerical variable a and logical variable b can be applied to mean( ), while character variable c and factor variable d can not be applied to mean( ).
+
 
 ```{r convert class, eval = FALSE}
-as.numeric(df1$b) 
-as.numeric(df1$c)
-as.numeric(df1$d)
-
+## change classes into numerical.
+sapply(select(df1, b:d), FUN = as.numeric)
 ```
 
-```{r}
+```{r operations after coercion}
 as.numeric(df1$b) * df1$a
+
 as.factor(df1$b) * df1$a
+
 as.numeric(as.factor(df1$b)) * df1$a
 ```
 
 ### summary 2
-Given to the result, the logical and factor var are converted to numerical var by assigning the levels of catogries with ordering number, while the character value can not be converted. 
+Given to the result, the logical and factor variabls are converted to numerical var by assigning the levels of catogries with ordering number, while the character value can not be converted. 
 
-As the error shows, the mean() can only take **numerical and logical var** as objects to do the maths, while factor and character var can not be converted to the corresponding classes in mean function.
+As the error shows, the mean() can only take **numerical and logical variables** as objects to do the maths, while factor and character variables can not be converted to the corresponding classes in mean function, yet factor variable can be coverted into numerical and then calculate average, which may not be an appropriate way to describe discrete variables.
+
 
 # Problem 2
+
 ```{r create df2}
+## create df2
 df2 <- tibble(
     x = rnorm(500),
     y = rnorm(500),
@@ -55,11 +60,9 @@ df2 <- tibble(
 
 ### Description  of df2
 
-* The size of data frame df2 above is (`r nrow(df2)`,`r ncol(df2)`)
-* The mean of x is `r mean(df2$x)`, 
-* The median of x is `r median(df2$x)`
-* And the standard deviation of x is `r sd(df2$x)`
-* The propotion of cases which (x+y) > 1 is `r mean(df2$z)`
+* The size of data frame df2 above is `r nrow(df2)` rows * `r ncol(df2)` cols;
+* The mean of x is `r mean(df2$x)`; the median of x is `r median(df2$x)`; and the standard deviation of x is `r sd(df2$x)`;
+* The propotion of cases which (x+y) > 1 is `r mean(df2$z)`.
 
 ### plotting section
 
@@ -74,8 +77,8 @@ ggplot(df2, aes(x, y, color = fac_z)) + geom_point()
 
 ### Comment on color scale
 
-* As shown in the plot, the color scale for logical and factor variables are assigned by the categories, which means different categories have different colors. 
+* As shown in the plot, the color scale for logical and factor variables are assigned by the **categories**, which means different categories have different colors. 
 
-* While for numerical variables, color scale is assigned by the quantile of the var, which means the numerical data was cut into 5 categories according to the quantile, and the color is changed from dark to light according to the absolute number of boundary of categories changing from minimum to maximum.
+* While for numerical variables, color scale is assigned by the **quantile** of the variable by default, which means that the data of numerical variable was cut into 5 categories according to the quantile, and the 5 color is categorized from dark to light according to the absolute number of boundary of categories changing from minimum to maximum.
 
 
