@@ -2,10 +2,7 @@
 title: "p8105_hw1_ym2771"
 author: "miao"
 date: "9/12/2019"
-output:
-  html_document:
-    toc: true
-    toc_float: true
+output: github_document
 ---
 # Problem 1
 
@@ -31,6 +28,9 @@ as.numeric(df1$b)
 as.numeric(df1$c)
 as.numeric(df1$d)
 
+```
+
+```{r}
 as.numeric(df1$b) * df1$a
 as.factor(df1$b) * df1$a
 as.numeric(as.factor(df1$b)) * df1$a
@@ -65,6 +65,7 @@ df2 <- tibble(
 
 ```{r scatter plot}
 ggplot(df2, aes(x, y, color = z)) + geom_point()
+ggsave('First plot.pdf')
 ggplot(df2, aes(x, y, color = num_z)) + geom_point()
 ggplot(df2, aes(x, y, color = fac_z)) + geom_point()
 
