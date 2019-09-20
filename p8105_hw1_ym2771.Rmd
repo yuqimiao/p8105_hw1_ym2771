@@ -6,9 +6,11 @@ output: github_document
 ---
 # Problem 1
 
-```{r create df1}
+```{r tydiverse, message = F}
 library(tidyverse)
+```
 
+```{r create df1}
 ## create df1
 df1 <- tibble(
     a = rnorm(8),
@@ -31,11 +33,11 @@ sapply(select(df1, b:d), FUN = as.numeric)
 ```
 
 ```{r operations after coercion}
-as.numeric(df1$b) * df1$a
+as.numeric(pull(df1, b)) * pull(df1, a)
 
-as.factor(df1$b) * df1$a
+as.factor(pull(df1, b)) * pull(df1, a)
 
-as.numeric(as.factor(df1$b)) * df1$a
+as.numeric(as.factor(pull(df1, b))) * pull(df1, a)
 ```
 
 ### summary 2
